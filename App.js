@@ -6,16 +6,28 @@ import {
   View,
   TouchableOpacity,
   FlatList,
+  Modal,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "./Colors";
 import tempData from "./tempData";
 import TaskList from "./components/TaskList";
+import AddListModal from "./components/AddListModal";
 
 export default class App extends React.Component {
+  state = {
+    addTaskVisible: false,
+  };
+
+  toggleAddToModal() {
+    this.setState({ addTaskVisible: !this.state.addTaskVisible });
+  }
   render() {
     return (
       <View style={styles.container}>
+        <Modal animationType="slide" visible={this.state.addTaskVisible} onRequestClose={() => this.toggleAddToModal()}>
+          <AddListModal closeModal={() => this.toggleAddToModal()} />
+        </Modal>
         <View style={{ flexDirection: "row" }}>
           <View style={styles.liner} />
           <Text style={styles.title}>
@@ -26,7 +38,7 @@ export default class App extends React.Component {
 
         <StatusBar style="auto" />
         <View style={{ marginVertical: 50 }}>
-          <TouchableOpacity style={styles.addList}>
+          <TouchableOpacity style={styles.addList} onPress={() => this.toggleAddToModal() }>
             <Ionicons name="add-outline" size={32} color={Colors.blue} />
           </TouchableOpacity>
           <Text style={styles.add}>Add List</Text>
@@ -37,7 +49,7 @@ export default class App extends React.Component {
             keyExtractor={(item) => item.name}
             horizontal={true}
             showsHorizontalScrollIndicator={true}
-            renderItem={({item}) => <TaskList list={item}/>}
+            renderItem={({ item }) => <TaskList list={item} />}
           />
         </View>
       </View>
