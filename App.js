@@ -22,6 +22,11 @@ export default class App extends React.Component {
   toggleAddToModal() {
     this.setState({ addTaskVisible: !this.state.addTaskVisible });
   }
+
+  renderList = list => {
+    return <TaskList list={list} />
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -49,7 +54,7 @@ export default class App extends React.Component {
             keyExtractor={(item) => item.name}
             horizontal={true}
             showsHorizontalScrollIndicator={true}
-            renderItem={({ item }) => <TaskList list={item} />}
+            renderItem={({ item }) => this.renderList(item)}
           />
         </View>
       </View>
