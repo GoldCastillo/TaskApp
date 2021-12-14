@@ -27,21 +27,18 @@ export default class AddListModal extends React.Component {
   };
 
   createTask = () => {
-     const { name, color } = this.state;
-    
-      tempData.push({
-       name,
-       color,
-       tasks: []
-     }) 
+    const { name, color } = this.state;
 
-     this.setState({name: "" });
-     this.props.closeModal();
+    const list = { name, color };
 
-  }
+    this.props.addList(list);
+
+    this.setState({ name: "" });
+    this.props.closeModal();
+  };
 
   renderColors() {
-    return this.backgroundColors.map(color => {
+    return this.backgroundColors.map((color) => {
       return (
         <TouchableOpacity
           key={color}
@@ -54,11 +51,14 @@ export default class AddListModal extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView behavior={Platform.OS == "ios" ? "padding": "height"} style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
         <TouchableOpacity
-          style={{ position: "absolute", top: 20, right: 32 }}
-          onPress={this.props.closeModal}>
-
+          style={{ position: "absolute", top: 12, right: 32 }}
+          onPress={this.props.closeModal}
+        >
           <Ionicons name="close" size={24} color={Colors.black} />
         </TouchableOpacity>
 
@@ -67,7 +67,7 @@ export default class AddListModal extends React.Component {
           <TextInput
             style={styles.input}
             placeholder={"List name?"}
-            onChangeText={text => this.setState({ name: text })}
+            onChangeText={(text) => this.setState({ name: text })}
           />
           <View
             style={{
@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    
   },
   title: {
     fontSize: 28,
@@ -124,8 +123,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   colorSelect: {
-     width: 32,
-     height: 30,
-     borderRadius: 4,
-  }
+    width: 32,
+    height: 30,
+    borderRadius: 4,
+  },
 });

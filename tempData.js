@@ -1,5 +1,6 @@
 export default tempData = [
   {
+    id: 1,
     name: "Plan a wedding",
     color: "#bf0d34",
     tasks: [
@@ -18,6 +19,7 @@ export default tempData = [
     ],
   },
   {
+    id: 2,
     name: "Workout",
     color: "#c76c1c",
     tasks: [
@@ -36,6 +38,7 @@ export default tempData = [
     ],
   },
   {
+    id: 3,
     name: "Build a laptop",
     color: "#59ebbf",
     tasks: [

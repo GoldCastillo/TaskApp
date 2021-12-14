@@ -3,7 +3,7 @@ import React from "react";
 import { render } from "react-dom";
 import { StyleSheet, Text, View, TouchableOpacity, Modal } from "react-native";
 import Colors from "../Colors";
-import TaskModal from "./TaskModal"; 
+import TaskModal from "./TaskModal";
 
 export default class TaskList extends React.Component {
   state = {
@@ -15,17 +15,25 @@ export default class TaskList extends React.Component {
   }
   render() {
     const list = this.props.list;
-
     const completedCount = list.tasks.filter((task) => task.completed).length;
     const remainingCount = list.tasks.length - completedCount;
 
     return (
       <View>
-        <Modal animationType="slide" visible={this.state.showListVisible} onRequestClose={() => this.toggleListModal()}>
-          <TaskModal list={list} closeModal={() => this.toggleListModal()} />
+        <Modal
+          animationType="slide"
+          visible={this.state.showListVisible}
+          onRequestClose={() => this.toggleListModal()}
+        >
+          <TaskModal
+            list={list}
+            closeModal={() => this.toggleListModal()}
+            updateList={this.props.updateList}
+          />
         </Modal>
         <TouchableOpacity
-          style={[styles.listContainer, { backgroundColor: list.color }]} onPress={() => this.toggleListModal()}
+          style={[styles.listContainer, { backgroundColor: list.color }]}
+          onPress={() => this.toggleListModal()}
         >
           <Text style={styles.listTitle} numberOfLines={1}>
             {list.name}

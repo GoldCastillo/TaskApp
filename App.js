@@ -17,6 +17,7 @@ import AddListModal from "./components/AddListModal";
 export default class App extends React.Component {
   state = {
     addTaskVisible: false,
+    lists: tempData,
   };
 
   toggleAddToModal() {
@@ -24,14 +25,37 @@ export default class App extends React.Component {
   }
 
   renderList = list => {
-    return <TaskList list={list} />
-  }
+    return <TaskList list={list} updateList={this.updateList} />;
+  };
 
+  addList = list => {
+    this.setState({
+      lists: [
+        ...this.state.lists,
+        { ...list, id: this.state.lists.length + 1, tasks: [] },
+      ],
+    });
+  };
+
+  updateList = list => {
+    this.setState({lists: this.state.lists.map(item => {
+        return item.id === list.id ? list : item;
+      })
+    });
+  };
+  
   render() {
     return (
       <View style={styles.container}>
-        <Modal animationType="slide" visible={this.state.addTaskVisible} onRequestClose={() => this.toggleAddToModal()}>
-          <AddListModal closeModal={() => this.toggleAddToModal()} />
+        <Modal
+          animationType="slide"
+          visible={this.state.addTaskVisible}
+          onRequestClose={() => this.toggleAddToModal()}
+        >
+          <AddListModal
+            closeModal={() => this.toggleAddToModal()}
+            addList={this.addList}
+          />
         </Modal>
         <View style={{ flexDirection: "row" }}>
           <View style={styles.liner} />
@@ -43,18 +67,22 @@ export default class App extends React.Component {
 
         <StatusBar style="auto" />
         <View style={{ marginVertical: 50 }}>
-          <TouchableOpacity style={styles.addList} onPress={() => this.toggleAddToModal() }>
+          <TouchableOpacity
+            style={styles.addList}
+            onPress={() => this.toggleAddToModal()}
+          >
             <Ionicons name="add-outline" size={32} color={Colors.blue} />
           </TouchableOpacity>
           <Text style={styles.add}>Add List</Text>
         </View>
         <View style={{ height: 260, paddingLeft: 30 }}>
           <FlatList
-            data={tempData}
+            data={this.state.lists}
             keyExtractor={(item) => item.name}
             horizontal={true}
             showsHorizontalScrollIndicator={true}
             renderItem={({ item }) => this.renderList(item)}
+            keyboardShouldPersistTaps="always"
           />
         </View>
       </View>
