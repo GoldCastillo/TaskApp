@@ -1,14 +1,23 @@
 import { Color } from "chalk";
 import React from "react";
 import { render } from "react-dom";
-import { StyleSheet, Text, View, TouchableOpacity, Modal } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Modal, Alert } from "react-native";
 import Colors from "../Colors";
 import TaskModal from "./TaskModal";
+import DoubleClick from "react-native-double-click";
+import { TouchableHighlight } from "react-native-gesture-handler";
+import tempData from "../tempData";
 
 export default class TaskList extends React.Component {
   state = {
     showListVisible: false,
+    lists: tempData
   };
+
+  deleteList = (list) => {
+    this.setState({lists: this.state.lists.splice(list, 1)})
+    Alert.alert("Tasklist deleted")  
+  }
 
   toggleListModal() {
     this.setState({ showListVisible: !this.state.showListVisible });
@@ -31,9 +40,10 @@ export default class TaskList extends React.Component {
             updateList={this.props.updateList}
           />
         </Modal>
+        
         <TouchableOpacity
           style={[styles.listContainer, { backgroundColor: list.color }]}
-          onPress={() => this.toggleListModal()}
+          onPress={() => this.toggleListModal()} onLongPress={() => this.deleteList(list)}
         >
           <Text style={styles.listTitle} numberOfLines={1}>
             {list.name}

@@ -13,6 +13,8 @@ import Colors from "./Colors";
 import tempData from "./tempData";
 import TaskList from "./components/TaskList";
 import AddListModal from "./components/AddListModal";
+console.disableYellowBox = true;
+
 
 export default class App extends React.Component {
   state = {
@@ -20,15 +22,17 @@ export default class App extends React.Component {
     lists: tempData,
   };
 
+  
+
   toggleAddToModal() {
     this.setState({ addTaskVisible: !this.state.addTaskVisible });
   }
 
-  renderList = list => {
+  renderList = (list) => {
     return <TaskList list={list} updateList={this.updateList} />;
   };
 
-  addList = list => {
+  addList = (list) => {
     this.setState({
       lists: [
         ...this.state.lists,
@@ -37,13 +41,16 @@ export default class App extends React.Component {
     });
   };
 
-  updateList = list => {
-    this.setState({lists: this.state.lists.map(item => {
+  updateList = (list) => {
+    this.setState({
+      lists: this.state.lists.map((item) => {
         return item.id === list.id ? list : item;
-      })
+      }),
     });
   };
-  
+
+ 
+
   render() {
     return (
       <View style={styles.container}>

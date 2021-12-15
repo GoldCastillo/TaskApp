@@ -8,15 +8,19 @@ import {
   FlatList,
   KeyboardAvoidingView,
   TextInput,
-  Keyboard
+  Keyboard,
+  ListViewBase,
+  Alert
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../Colors";
+import Swipeout from "react-native-swipeout";
 
 export default class TaskModal extends React.Component {
   state = {
     newTask: "",
   };
+  
 
   toggleTaskCompleted = (index) => {
     let list = this.props.list;
@@ -25,17 +29,45 @@ export default class TaskModal extends React.Component {
   };
 
   addTask = () => {
-    let list = this.props.list;
+    if (this.state.newTask != "") {
+      let list = this.props.list;
     list.tasks.push({title: this.state.newTask, completed: false});
 
     this.props.updateList(list);
     this.setState({newTask: ""});
-
     Keyboard.dismiss();
+    }
+    else {
+      Alert.alert("Invalid input")
+    }
+    
+
+    
   }
+  deleteTask = (index) => {
+    let list = this.props.list;
+    list.tasks.splice(index, 1)
+    this.props.updateList(list)
+  }
+  
 
   renderTask = (task, index) => {
+    
+    let swipeBtns = [
+      {
+        text: 'Delete',
+        backgroundColor: Colors.red,
+        underLayColor: "rgba(0, 0, 0, 1, 0.6)",
+        padding: 40,
+        onPress: () => {this.deleteTask(index)}
+      },
+    ];
+
+  
     return (
+      <Swipeout right={swipeBtns}
+        autoClose='true'
+        backgroundColor= 'transparent'>
       <View style={styles.taskContainer}>
         <TouchableOpacity onPress={() => this.toggleTaskCompleted(index)}>
           <Ionicons
@@ -58,6 +90,7 @@ export default class TaskModal extends React.Component {
           {task.title}
         </Text>
       </View>
+      </Swipeout>
     );
   };
   render() {
