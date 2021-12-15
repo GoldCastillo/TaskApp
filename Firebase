@@ -1,4 +1,4 @@
-import firebase from "firebase";
+/*import firebase from "firebase";
 import "@firebase/firestore";
 
 const firebaseConfig = {
@@ -11,7 +11,7 @@ const firebaseConfig = {
 };
 
 
-class Fire {
+class Firebase {
   constructor(callback) {
     this.init(callback);
   }
@@ -59,4 +59,5 @@ class Fire {
   }
 }
 
-export default Fire;
+export default Firebase;
+*/
