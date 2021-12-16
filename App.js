@@ -78,7 +78,7 @@ export default class App extends React.Component {
             style={styles.addList}
             onPress={() => this.toggleAddToModal()}
           >
-            <Ionicons name="add-outline" size={32} color={Colors.blue} />
+            <Ionicons name="add-outline" size={32} color={Colors.yellow} />
           </TouchableOpacity>
           <Text style={styles.add}>Add List</Text>
         </View>
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
 
   liner: {
-    backgroundColor: Colors.lightBlue,
+    backgroundColor: Colors.lightYellow,
     height: 1.5,
     flex: 1,
     alignSelf: "center",
@@ -119,18 +119,18 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: "100",
-    color: Colors.blue,
+    color: Colors.yellow,
   },
   addList: {
     borderWidth: 2,
-    borderColor: Colors.lightBlue,
+    borderColor: Colors.lightYellow,
     borderRadius: 5,
     padding: 20,
     alignItems: "center",
     justifyContent: "center",
   },
   add: {
-    color: Colors.blue,
+    color: Colors.yellow,
     fontWeight: "500",
     fontSize: 20,
     marginTop: 10,

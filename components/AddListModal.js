@@ -13,13 +13,13 @@ import tempData from "../tempData";
 
 export default class AddListModal extends React.Component {
   backgroundColors = [
-    "#eba459",
-    "#7eeb59",
-    "#59ebe6",
-    "#5979eb",
-    "#ba59eb",
-    "#eb59c9",
-    "#eb596f",
+    "#ffab8f",
+    "#eeff8f",
+    "#61faa3",
+    "#8fe1ff",
+    "#938fff",
+    "#ec8fff",
+    "#ff8fbc",
   ];
   state = {
     name: "",

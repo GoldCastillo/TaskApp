@@ -10,7 +10,7 @@ import {
   TextInput,
   Keyboard,
   ListViewBase,
-  Alert
+  Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../Colors";
@@ -20,7 +20,6 @@ export default class TaskModal extends React.Component {
   state = {
     newTask: "",
   };
-  
 
   toggleTaskCompleted = (index) => {
     let list = this.props.list;
@@ -31,65 +30,62 @@ export default class TaskModal extends React.Component {
   addTask = () => {
     if (this.state.newTask != "") {
       let list = this.props.list;
-    list.tasks.push({title: this.state.newTask, completed: false});
+      list.tasks.push({ title: this.state.newTask, completed: false });
 
-    this.props.updateList(list);
-    this.setState({newTask: ""});
-    Keyboard.dismiss();
+      this.props.updateList(list);
+      this.setState({ newTask: "" });
+      Keyboard.dismiss();
+    } else {
+      Alert.alert("Invalid input");
     }
-    else {
-      Alert.alert("Invalid input")
-    }
-    
-
-    
-  }
+  };
   deleteTask = (index) => {
     let list = this.props.list;
-    list.tasks.splice(index, 1)
-    this.props.updateList(list)
-  }
-  
+    list.tasks.splice(index, 1);
+    this.props.updateList(list);
+  };
 
   renderTask = (task, index) => {
-    
     let swipeBtns = [
       {
-        text: 'Delete',
+        text: "Delete",
         backgroundColor: Colors.red,
         underLayColor: "rgba(0, 0, 0, 1, 0.6)",
         padding: 40,
-        onPress: () => {this.deleteTask(index)}
+        onPress: () => {
+          this.deleteTask(index);
+        },
       },
     ];
 
-  
     return (
-      <Swipeout right={swipeBtns}
-        autoClose='true'
-        backgroundColor= 'transparent'>
-      <View style={styles.taskContainer}>
-        <TouchableOpacity onPress={() => this.toggleTaskCompleted(index)}>
-          <Ionicons
-            name={task.completed ? "checkbox" : "square-outline"}
-            size={24}
-            color={this.state.color}
-            style={{ width: 32 }}
-          />
-        </TouchableOpacity>
+      <Swipeout
+        right={swipeBtns}
+        autoClose="true"
+        backgroundColor="transparent"
+      >
+        <View style={styles.taskContainer}>
+          <TouchableOpacity onPress={() => this.toggleTaskCompleted(index)}>
+            <Ionicons
+              name={task.completed ? "checkbox" : "square-outline"}
+              size={24}
+              color={this.state.color}
+              style={{ width: 32 }}
+            />
+          </TouchableOpacity>
 
-        <Text
-          style={[
-            styles.task,
-            {
-              textDecorationLine: task.completed ? "line-through" : "none",
-              color: task.completed ? Colors.gray : Colors.black,
-            },
-          ]}
-        >
-          {task.title}
-        </Text>
-      </View>
+          <Text
+            style={[
+              styles.task,
+              {
+                textDecorationLine: task.completed ? "line-through" : "none",
+                color: task.completed ? Colors.gray : Colors.black,
+              },
+            ]}
+          >
+            {task.title}
+          </Text>
+        </View>
       </Swipeout>
     );
   };
@@ -142,7 +138,8 @@ export default class TaskModal extends React.Component {
               value={this.state.newTask}
             />
             <TouchableOpacity
-              style={[styles.addTask, { backgroundColor: list.color }]} onPress={() => this.addTask()}
+              style={[styles.addTask, { backgroundColor: list.color }]}
+              onPress={() => this.addTask()}
             >
               <Ionicons name="add-outline" size={24} color={Colors.white} />
             </TouchableOpacity>
