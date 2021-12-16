@@ -10,5 +10,6 @@ Used technologies:
 - Using modals
 - Using props
 - Using state
+- Using flatlist
 - Using swipeout from "react-native-swipeout"
 - Using Ionicons from "@expo/vector-icons"
