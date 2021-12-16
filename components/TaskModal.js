@@ -98,7 +98,7 @@ export default class TaskModal extends React.Component {
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
         <SafeAreaView style={styles.container}>
           <TouchableOpacity
-            style={{ position: "absolute", top: 12, right: 32, zIndex: 10 }}
+            style={{ position: "absolute", top: 32, right: 32, zIndex: 10 }}
             onPress={this.props.closeModal}
           >
             <Ionicons name="close" size={24} color={Colors.black} />
@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
   section: {
     flex: 1,
     alignSelf: "stretch",

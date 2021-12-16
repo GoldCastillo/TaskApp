@@ -56,7 +56,7 @@ export default class AddListModal extends React.Component {
         style={styles.container}
       >
         <TouchableOpacity
-          style={{ position: "absolute", top: 12, right: 32 }}
+          style={{ position: "absolute", top: 32, right: 32 }}
           onPress={this.props.closeModal}
         >
           <Ionicons name="close" size={24} color={Colors.black} />
