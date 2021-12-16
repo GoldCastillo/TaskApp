@@ -51,7 +51,7 @@ export default class TaskModal extends React.Component {
   // deleteTask method
   deleteTask = (index) => {
     let list = this.props.list;
-    list.tasks.splice(index, 1);
+    list.tasks.splice(index);
     this.props.updateList(list);
   };
 
@@ -75,7 +75,6 @@ export default class TaskModal extends React.Component {
       <Swipeout
         // Calls swipeBtns deleteTask method
         right={swipeBtns}
-        autoClose="true"
         backgroundColor="transparent"
       >
         <View style={styles.taskContainer}>
@@ -152,7 +151,7 @@ export default class TaskModal extends React.Component {
             />
           </View>
           <View style={[styles.section, styles.footer]}>
-            {/* New task text input */}
+            {/* New task text input*/}
             <TextInput
               style={[styles.input, { borderColor: list.color }]}
               onChangeText={(text) => this.setState({ newTask: text })}
