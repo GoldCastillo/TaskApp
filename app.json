@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "TaskApp made with react-native class components",
+    "githubUrl": "https://github.com/GoldCastillo/TaskApp.git"
   }
 }
