@@ -9,19 +9,29 @@ import { TouchableHighlight } from "react-native-gesture-handler";
 import tempData from "../tempData";
 
 export default class TaskList extends React.Component {
+
+  // TaskList state adds
   state = {
     showListVisible: false,
     lists: tempData
   };
 
+
+  // DeleteList method
   deleteList = (list) => {
     this.setState({lists: this.state.lists.splice(list, 1)})
+
+    // Alert when task is being deleted
     Alert.alert("Tasklist deleted")  
   }
 
+
+  // Shows all tasks inside TaskList
   toggleListModal() {
     this.setState({ showListVisible: !this.state.showListVisible });
   }
+
+  // Tasks render
   render() {
     const list = this.props.list;
     const completedCount = list.tasks.filter((task) => task.completed).length;
@@ -29,6 +39,7 @@ export default class TaskList extends React.Component {
 
     return (
       <View>
+        {/* Tasks modal */}
         <Modal
           animationType="slide"
           visible={this.state.showListVisible}
@@ -40,18 +51,24 @@ export default class TaskList extends React.Component {
             updateList={this.props.updateList}
           />
         </Modal>
-        
+
+        {/* Tasks lists with delete */}
         <TouchableOpacity
           style={[styles.listContainer, { backgroundColor: list.color }]}
-          onPress={() => this.toggleListModal()} onLongPress={() => this.deleteList(list)}
+          onPress={() => this.toggleListModal()}
+          onLongPress={() => this.deleteList(list)}
         >
           <Text style={styles.listTitle} numberOfLines={1}>
             {list.name}
           </Text>
+
+          {/* Completed number */}
           <View style={{ alignItems: "center" }}>
             <Text style={styles.count}>{completedCount}</Text>
             <Text style={styles.subtitle}>Completed</Text>
           </View>
+
+          {/* Remaining number */}
           <View style={{ alignItems: "center" }}>
             <Text style={styles.count}>{remainingCount}</Text>
             <Text style={styles.subtitle}>Remaining</Text>

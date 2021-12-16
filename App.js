@@ -17,21 +17,24 @@ console.disableYellowBox = true;
 
 
 export default class App extends React.Component {
+
+  // App state adds
   state = {
     addTaskVisible: false,
     lists: tempData,
   };
 
-  
-
+  //onPress task 
   toggleAddToModal() {
     this.setState({ addTaskVisible: !this.state.addTaskVisible });
   }
 
+  // Renders TaskLists and calls updateList method
   renderList = (list) => {
     return <TaskList list={list} updateList={this.updateList} />;
   };
 
+  // Adds list to lists
   addList = (list) => {
     this.setState({
       lists: [
@@ -40,7 +43,7 @@ export default class App extends React.Component {
       ],
     });
   };
-
+  // Method to update lists
   updateList = (list) => {
     this.setState({
       lists: this.state.lists.map((item) => {
@@ -54,6 +57,8 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+
+        {/*Add to lists modal */}
         <Modal
           animationType="slide"
           visible={this.state.addTaskVisible}
@@ -64,6 +69,8 @@ export default class App extends React.Component {
             addList={this.addList}
           />
         </Modal>
+
+        {/* Title */}
         <View style={{ flexDirection: "row" }}>
           <View style={styles.liner} />
           <Text style={styles.title}>
@@ -74,15 +81,20 @@ export default class App extends React.Component {
 
         <StatusBar style="auto" />
         <View style={{ marginVertical: 50 }}>
+          {/* onPress AddToList button */}
           <TouchableOpacity
             style={styles.addList}
             onPress={() => this.toggleAddToModal()}
           >
             <Ionicons name="add-outline" size={32} color={Colors.yellow} />
           </TouchableOpacity>
+
+          
           <Text style={styles.add}>Add List</Text>
         </View>
         <View style={{ height: 260, paddingLeft: 30 }}>
+
+        {/* FlatList of tasks */}
           <FlatList
             data={this.state.lists}
             keyExtractor={(item) => item.name}

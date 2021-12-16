@@ -1,3 +1,5 @@
+
+// Colors to the app
 export default Colors = {
   black: "#2D3436",
   yellow: "#e6b450",

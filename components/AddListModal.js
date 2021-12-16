@@ -9,9 +9,11 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "../Colors";
-import tempData from "../tempData";
+
 
 export default class AddListModal extends React.Component {
+
+  // State colors add
   backgroundColors = [
     "#ffab8f",
     "#eeff8f",
@@ -26,6 +28,8 @@ export default class AddListModal extends React.Component {
     color: this.backgroundColors[0],
   };
 
+
+  // createTask method
   createTask = () => {
     const { name, color } = this.state;
 
@@ -37,9 +41,13 @@ export default class AddListModal extends React.Component {
     this.props.closeModal();
   };
 
+
+  // rendersColors
   renderColors() {
     return this.backgroundColors.map((color) => {
       return (
+
+        // Renders them to buttons
         <TouchableOpacity
           key={color}
           style={[styles.colorSelect, { backgroundColor: color }]}
@@ -55,6 +63,7 @@ export default class AddListModal extends React.Component {
         behavior={Platform.OS == "ios" ? "padding" : "height"}
         style={styles.container}
       >
+        {/* Exit button */}
         <TouchableOpacity
           style={{ position: "absolute", top: 32, right: 32 }}
           onPress={this.props.closeModal}
@@ -63,7 +72,11 @@ export default class AddListModal extends React.Component {
         </TouchableOpacity>
 
         <View style={{ alignSelf: "stretch", marginHorizontal: 32 }}>
+          {/* Title */}
           <Text style={styles.title}>Create Task List</Text>
+
+          {/* Task input */}
+
           <TextInput
             style={styles.input}
             placeholder={"List name?"}
@@ -76,9 +89,11 @@ export default class AddListModal extends React.Component {
               marginTop: 12,
             }}
           >
+            {/* Makes colors visible to user */}
             {this.renderColors()}
           </View>
 
+          {/* Create task button */}
           <TouchableOpacity
             style={[styles.create, { backgroundColor: this.state.color }]}
             onPress={this.createTask}

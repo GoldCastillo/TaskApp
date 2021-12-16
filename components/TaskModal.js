@@ -17,16 +17,22 @@ import Colors from "../Colors";
 import Swipeout from "react-native-swipeout";
 
 export default class TaskModal extends React.Component {
+
+  // State adds
   state = {
     newTask: "",
   };
 
+
+  // ToggleTaskCompleted method (Done, Undone)
   toggleTaskCompleted = (index) => {
     let list = this.props.list;
     list.tasks[index].completed = !list.tasks[index].completed;
     this.props.updateList(list);
   };
 
+
+  // Add task method
   addTask = () => {
     if (this.state.newTask != "") {
       let list = this.props.list;
@@ -36,15 +42,21 @@ export default class TaskModal extends React.Component {
       this.setState({ newTask: "" });
       Keyboard.dismiss();
     } else {
+      // If task name is empty
       Alert.alert("Invalid input");
+
     }
   };
+
+  // deleteTask method
   deleteTask = (index) => {
     let list = this.props.list;
     list.tasks.splice(index, 1);
     this.props.updateList(list);
   };
 
+
+  // render to task swibeBtns
   renderTask = (task, index) => {
     let swipeBtns = [
       {
@@ -59,12 +71,16 @@ export default class TaskModal extends React.Component {
     ];
 
     return (
+      // Swipe right
       <Swipeout
+        // Calls swipeBtns deleteTask method
         right={swipeBtns}
         autoClose="true"
         backgroundColor="transparent"
       >
         <View style={styles.taskContainer}>
+
+          {/* onPress calls toggleTaskCompleted method */}
           <TouchableOpacity onPress={() => this.toggleTaskCompleted(index)}>
             <Ionicons
               name={task.completed ? "checkbox" : "square-outline"}
@@ -97,6 +113,7 @@ export default class TaskModal extends React.Component {
     return (
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
         <SafeAreaView style={styles.container}>
+          {/* Exit button */}
           <TouchableOpacity
             style={{ position: "absolute", top: 32, right: 32, zIndex: 10 }}
             onPress={this.props.closeModal}
@@ -114,14 +131,17 @@ export default class TaskModal extends React.Component {
             <View>
               <Text style={styles.title}>{list.name}</Text>
               <Text style={styles.taskCount}>
+                {/*Subheader of completes*/}
                 {completedCount} of {taskCount} tasks
               </Text>
             </View>
           </View>
 
           <View style={[styles.section, { flex: 3 }]}>
+            {/* FlatList of all tasks inside tasklist */}
             <FlatList
               data={list.tasks}
+              // Renders task
               renderItem={({ item, index }) => this.renderTask(item, index)}
               keyExtractor={(item) => item.title}
               contentContainerStyle={{
@@ -132,11 +152,13 @@ export default class TaskModal extends React.Component {
             />
           </View>
           <View style={[styles.section, styles.footer]}>
+            {/* New task text input */}
             <TextInput
               style={[styles.input, { borderColor: list.color }]}
               onChangeText={(text) => this.setState({ newTask: text })}
               value={this.state.newTask}
             />
+            {/* New task add button */}
             <TouchableOpacity
               style={[styles.addTask, { backgroundColor: list.color }]}
               onPress={() => this.addTask()}
