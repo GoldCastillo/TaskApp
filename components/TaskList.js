@@ -17,15 +17,6 @@ export default class TaskList extends React.Component {
   };
 
 
-  // DeleteList method
-  deleteList = (list) => {
-    this.setState({lists: this.state.lists.splice(list, 1)})
-
-    // Alert when task is being deleted
-    Alert.alert("Tasklist deleted")  
-  }
-
-
   // Shows all tasks inside TaskList
   toggleListModal() {
     this.setState({ showListVisible: !this.state.showListVisible });
@@ -56,7 +47,6 @@ export default class TaskList extends React.Component {
         <TouchableOpacity
           style={[styles.listContainer, { backgroundColor: list.color }]}
           onPress={() => this.toggleListModal()}
-          onLongPress={() => this.deleteList(list)}
         >
           <Text style={styles.listTitle} numberOfLines={1}>
             {list.name}

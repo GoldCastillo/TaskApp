@@ -51,7 +51,7 @@ export default class TaskModal extends React.Component {
   // deleteTask method
   deleteTask = (index) => {
     let list = this.props.list;
-    list.tasks.splice(index);
+    list.tasks.splice(index, 1);
     this.props.updateList(list);
   };
 
